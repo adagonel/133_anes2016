@@ -1,0 +1,202 @@
+---
+title: "133 Project - Wolverines ANES 2016 Group testing"
+author: ""
+date: ""
+output: 
+  html_document:
+    fig_height: 3
+    fig_width: 5
+---
+<!-- Don't edit in between this line and the one below -->
+```{r include=FALSE}
+# Don't delete this chunk if you are using the DataComputing package
+library(DataComputing)
+library(printr)
+```
+*Source file* 
+```{r, results='asis', echo=FALSE}
+includeSourceDocuments()
+```
+<!-- Don't edit the material above this line -->
+
+#Angelo
+
+Interesting variables from Codebook
+
+```
+# Issues
+ISSUES_OC14_9 Rank - Most important issues in terms of choosing a political candidate - Income
+
+
+incgap20 Difference in incomes is larger/smaller
+
+ladder Move up the income ladder - Easier/harder
+```
+
+```{r}
+v_2016 <- read.csv("a16.2016vote-info.csv")
+v_demog <- read.csv("a16.voter-demog.csv")
+v_id <- read.csv("a16.voter-id.csv")
+v_tend <- read.csv("a16.voter-tend.csv")
+v_parc <- read.csv("a16.participation.csv")
+issues <- read.csv("a16.issues.csv")
+policy <- read.csv("a16.policy.csv")
+```
+
+# Candidate preference
+```{r}
+head(v_2016)
+```
+
+**vote16dt** : * 713 people not asked! Sketchy variable?
+1 = HRC
+2 = Donald Trump
+3 = Other
+4 = Won't vote given options
+9 = Didn't ask (Get rid of!)
+
+**Discrete variables** 
+- percent16: Probability that R will vote in 2016 general election
+
+---
+
+# Demographic characteristics
+
+```{r}
+head(v_demog)
+```
+
+Remove: skin_discrim, employ_t, faminc, pid3, pew_bornagain, pew_churatd, religpew
+
+**Racial identification 10-point system**: 0 = Lowest 10 = Highest
+
+`other10_open` = Free type response, char
+
+**Chronological variable**: `birthyr`!!!!
+
+**Gender binary**: 1 = Male 2 = Female :/ EVEN IN 2017
+
+**race**: 8 values, predominantly white: *875 w*, 135 b, 113 h, 23 a, 7 na, 30 mixed, 15 other, 2 mid e
+
+- 1 White
+- 2 Black
+- 3 Hispanic
+- 4 Asian
+- 5 Native American
+- 6 Mixed
+- 7 Other
+- 8 Middle Eastern
+
+
+**educ**: 1st High school graduate 2nd Some college 3 4-year
+
+- 1 No HS
+- 2 High school graduate
+- 3 Some college
+- 4 2-year
+- 5 4-year
+- 6 Post-grad
+
+**marstat**: Marital status
+
+- 1 Married
+- 2 Separated
+- 3 Divorced
+- 4 Widowed
+- 5 Single
+- 6 Domestic partnership
+
+**speakspanish**: only ~100 cases of spanish speakers
+
+1 primary sp
+2 dual sp + eng
+3 primary eng, some sp
+4 no spanish
+
+**employ**: current employment status;
+1st full time 2nd retired 3rd part time 4 unemployed + homemaker
+
+471 1 Full-time
+143 2 Part-time
+4 3 Temporarily laid off
+102 4 Unemployed
+197 5 Retired
+112 6 Permanently disabled
+93 7 Homemaker
+63 8 Student
+15 9 Other
+
+**faminc**: By ten-thousand, except when reaching `10`, then by 30k
+
+*Maybe combine all past 12? Which would mean 'Above 150k'*
+
+1 0-9k
+2 10-19k
+3 20-29k
+4 30k-
+5 40
+6 50
+7 60
+8 70
+9 80
+10 90 - 119
+11 120 - 149...
+
+**State**: omg ALPHABETICAL ORDER ! why not just a char :'( [Find here](http://memorize.com/us-states-in-alphabetical-order)
+
+**votereg**: 1 yes 2 no 3 don't know
+
+**pid7**: 7 point party identification
+1st Strong democr 2nd independent 3 strong republican
+
+get rid of `.`
+
+- 1 Strong Democrat
+- 2 Weak Democrat
+- 3 Lean Democrat
+- 4 Independent
+- 5 Lean Republican
+- 6 Weak Republican
+- 7 Strong Republican
+- 8 Not sure
+- .
+
+**ideo5**: 5 point ideology
+
+1st moderate 2nd conservative 2 liberal
+
+- 1 Very liberal
+- 2 Liberal
+- 3 Moderate
+- 4 Conservative
+- 5 Very conservative
+- 6 Not sure
+
+**newsint**: mostly interested
+
+- 1 Most of the time
+- 2 Some of the time
+- 3 Only now and then
+- 4 Hardly at all
+- 7 Don't know
+
+---
+
+#
+
+```{r}
+v_id
+```
+
+Remove: pid1d pid1r
+
+**lcself and on >**: 7 point ideol scale
+
+1 very lib 2 some lib 3 lean lib 4 neither
+5 very rep 6 some rep 7 lean rep
+
+****
+
+****
+
+****
